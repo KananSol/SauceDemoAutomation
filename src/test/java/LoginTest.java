@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import pages.LoginPage;
 import pages.InventoryPage;
+import pages.CartPage;
 
 
 public class LoginTest {
@@ -13,6 +14,7 @@ public class LoginTest {
     WebDriver driver;
     LoginPage loginPage;
     InventoryPage inventoryPage;
+    CartPage cartPage;
 
 
     @BeforeMethod
@@ -23,6 +25,7 @@ public class LoginTest {
 
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
+        cartPage = new CartPage(driver);
     }
 
 
@@ -51,6 +54,27 @@ public class LoginTest {
         String expectedProductsTitle = "Products";
 
         Assert.assertEquals(actualProductsTitle, expectedProductsTitle);
+    }
+
+    @Test
+    public void addBackpackToCartTest() {
+
+        loginPage.login("standard_user", "secret_sauce");
+        inventoryPage.addBackpackToCart();
+        String actualCartCount = inventoryPage.getCartItemCount();
+        String expectedCartCount = "1";
+        Assert.assertEquals(actualCartCount, expectedCartCount);
+    }
+
+    @Test
+    public void verifyBackpackInCartTest() {
+
+        loginPage.login("standard_user", "secret_sauce");
+        inventoryPage.addBackpackToCart();
+        inventoryPage.openCart();
+        String actualProductName = cartPage.getProductName();
+        String expectedProductName = "Sauce Labs Backpack";
+        Assert.assertEquals(actualProductName, expectedProductName);
     }
 
 
