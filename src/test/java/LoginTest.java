@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import pages.LoginPage;
 import pages.InventoryPage;
 import pages.CartPage;
+import pages.CheckoutPage;
 
 
 public class LoginTest {
@@ -15,6 +16,7 @@ public class LoginTest {
     LoginPage loginPage;
     InventoryPage inventoryPage;
     CartPage cartPage;
+    CheckoutPage checkoutPage;
 
 
     @BeforeMethod
@@ -26,6 +28,7 @@ public class LoginTest {
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
         cartPage = new CartPage(driver);
+        checkoutPage = new CheckoutPage(driver);
     }
 
 
@@ -77,6 +80,14 @@ public class LoginTest {
         Assert.assertEquals(actualProductName, expectedProductName);
     }
 
+    @Test
+    public void checkoutTest() {
+        loginPage.login("standard_user", "secret_sauce");
+        inventoryPage.addBackpackToCart();
+        inventoryPage.openCart();
+        cartPage.clickCheckout();
+        checkoutPage.checkout("Kanan", "Soltanli", "AZ1000");
+    }
 
     @AfterMethod
     public void tearDown() {

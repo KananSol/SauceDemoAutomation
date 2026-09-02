@@ -7,6 +7,7 @@ public class CartPage {
 
     private WebDriver driver;
     private By productName = By.className("inventory_item_name");
+    private By checkoutButton = By.id("checkout");
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
@@ -14,5 +15,9 @@ public class CartPage {
 
     public String getProductName() {
         return driver.findElement(productName).getText();
+    }
+
+    public void clickCheckout() {
+        driver.findElement(checkoutButton).click();
     }
 }
