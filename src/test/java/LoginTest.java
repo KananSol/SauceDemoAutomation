@@ -8,6 +8,7 @@ import pages.LoginPage;
 import pages.InventoryPage;
 import pages.CartPage;
 import pages.CheckoutPage;
+import pages.CheckoutOverviewPage;
 
 
 public class LoginTest {
@@ -17,6 +18,7 @@ public class LoginTest {
     InventoryPage inventoryPage;
     CartPage cartPage;
     CheckoutPage checkoutPage;
+    CheckoutOverviewPage checkoutOverviewPage;
 
 
     @BeforeMethod
@@ -29,6 +31,7 @@ public class LoginTest {
         inventoryPage = new InventoryPage(driver);
         cartPage = new CartPage(driver);
         checkoutPage = new CheckoutPage(driver);
+        checkoutOverviewPage = new CheckoutOverviewPage(driver);
     }
 
 
@@ -87,7 +90,11 @@ public class LoginTest {
         inventoryPage.openCart();
         cartPage.clickCheckout();
         checkoutPage.checkout("Kanan", "Soltanli", "AZ1000");
+        String actualOverviewTitle = checkoutOverviewPage.getOverviewTitle();
+        String expectedOverviewTitle = "Checkout: Overview";
+        Assert.assertEquals(actualOverviewTitle, expectedOverviewTitle);
     }
+
 
     @AfterMethod
     public void tearDown() {
