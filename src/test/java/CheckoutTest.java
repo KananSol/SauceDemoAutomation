@@ -5,11 +5,7 @@ public class CheckoutTest extends BaseTest {
 
     @Test
     public void checkoutTest() {
-        loginAsStandardUser();
-        inventoryPage.addBackpackToCart();
-        inventoryPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.checkout("Kanan", "Soltanli", "AZ1000");
+        completeCheckoutFlow();
         String actualOverviewTitle = checkoutOverviewPage.getOverviewTitle();
         String expectedOverviewTitle = "Checkout: Overview";
         Assert.assertEquals(actualOverviewTitle, expectedOverviewTitle);
@@ -17,14 +13,20 @@ public class CheckoutTest extends BaseTest {
 
     @Test
     public void checkoutCompletePageTest() {
-        loginAsStandardUser();
-        inventoryPage.addBackpackToCart();
-        inventoryPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.checkout("Kanan", "Soltanli", "AZ1000");
+        completeCheckoutFlow();
         checkoutOverviewPage.clickFinish();
         String actualCompleteHeaderTitle = checkoutCompletePage.getCompleteMessage();
         String expectedCompleteHeaderTitle = "Thank you for your order!";
         Assert.assertEquals(actualCompleteHeaderTitle, expectedCompleteHeaderTitle);
     }
+
+    private void completeCheckoutFlow() {
+        loginAsStandardUser();
+        inventoryPage.addBackpackToCart();
+        inventoryPage.openCart();
+        cartPage.clickCheckout();
+        checkoutPage.checkout("Kanan", "Soltanli", "AZ1000");
+    }
+
+
 }
