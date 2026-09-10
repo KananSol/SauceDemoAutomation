@@ -3,9 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CheckoutPage {
-
-    private WebDriver driver;
+public class CheckoutPage extends BasePage {
 
     private By firstNameInput = By.id("first-name");
     private By lastNameInput = By.id("last-name");
@@ -13,23 +11,23 @@ public class CheckoutPage {
     private By continueButton = By.id("continue");
 
     public CheckoutPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void enterFirstName(String firstName) {
-        driver.findElement(firstNameInput).sendKeys(firstName);
+        type(firstNameInput, firstName);
     }
 
     public void enterLastName(String lastName) {
-        driver.findElement(lastNameInput).sendKeys(lastName);
+        type(lastNameInput, lastName);
     }
 
     public void enterPostalCode(String postalCode) {
-        driver.findElement(postalCodeInput).sendKeys(postalCode);
+        type(postalCodeInput, postalCode);
     }
 
-    public void  clickContinue(){
-        driver.findElement(continueButton).click();
+    public void clickContinue() {
+        click(continueButton);
     }
 
     public void checkout(String firstName, String lastName, String postalCode) {
