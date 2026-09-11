@@ -9,6 +9,7 @@ public class CheckoutPage extends BasePage {
     private By lastNameInput = By.id("last-name");
     private By postalCodeInput = By.id("postal-code");
     private By continueButton = By.id("continue");
+    private By errorMessage = By.cssSelector("[data-test='error']");
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -28,6 +29,10 @@ public class CheckoutPage extends BasePage {
 
     public void clickContinue() {
         click(continueButton);
+    }
+
+    public String getErrorMessage() {
+        return getText(errorMessage);
     }
 
     public void checkout(String firstName, String lastName, String postalCode) {

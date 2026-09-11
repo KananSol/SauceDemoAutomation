@@ -12,6 +12,6 @@ public class CheckoutCompletePage extends BasePage {
     }
 
     public String getCompleteMessage() {
-        return driver.findElement(completeHeader).getText();
+        return getText(completeHeader);
     }
 }

@@ -1,13 +1,15 @@
 import org.openqa.selenium.WebDriver;
-import pages.LoginPage;
-import pages.InventoryPage;
-import pages.CartPage;
-import pages.CheckoutPage;
-import pages.CheckoutOverviewPage;
-import pages.CheckoutCompletePage;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import pages.CartPage;
+import pages.CheckoutCompletePage;
+import pages.CheckoutOverviewPage;
+import pages.CheckoutPage;
+import pages.InventoryPage;
+import pages.LoginPage;
 
 public class BaseTest {
 
@@ -19,10 +21,13 @@ public class BaseTest {
     protected CheckoutOverviewPage checkoutOverviewPage;
     protected CheckoutCompletePage checkoutCompletePage;
 
-
     @BeforeMethod
     public void setUp() {
-        driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--guest");
+
+        driver = new ChromeDriver(options);
         driver.get("https://www.saucedemo.com/");
 
         loginPage = new LoginPage(driver);
@@ -37,8 +42,10 @@ public class BaseTest {
         loginPage.login("standard_user", "secret_sauce");
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

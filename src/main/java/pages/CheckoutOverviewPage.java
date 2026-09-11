@@ -13,11 +13,11 @@ public class CheckoutOverviewPage extends BasePage {
     }
 
     public String getOverviewTitle() {
-        return driver.findElement(overviewTitle).getText();
+        return getText(overviewTitle);
     }
 
     public void clickFinish() {
-        driver.findElement(finishButton).click();
+        click(finishButton);
     }
 
 }
