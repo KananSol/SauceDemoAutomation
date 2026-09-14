@@ -20,6 +20,7 @@ public class BaseTest {
     protected CheckoutPage checkoutPage;
     protected CheckoutOverviewPage checkoutOverviewPage;
     protected CheckoutCompletePage checkoutCompletePage;
+    protected ConfigReader config;
 
     @BeforeMethod
     public void setUp() {
@@ -27,8 +28,9 @@ public class BaseTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--guest");
 
+        config = new ConfigReader();
         driver = new ChromeDriver(options);
-        driver.get("https://www.saucedemo.com/");
+        driver.get(config.getProperty("baseUrl"));
 
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
@@ -39,7 +41,10 @@ public class BaseTest {
     }
 
     protected void loginAsStandardUser() {
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(
+                config.getProperty("username"),
+                config.getProperty("password")
+        );
     }
 
     @AfterMethod(alwaysRun = true)
