@@ -1,3 +1,5 @@
+package tests;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,6 +17,7 @@ import org.openqa.selenium.OutputType;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 
 public class BaseTest {
@@ -73,7 +76,8 @@ public class BaseTest {
             try {
                 Files.copy(
                         screenshot.toPath(),
-                        destination.toPath()
+                        destination.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING
                 );
             } catch (IOException e) {
                 throw new RuntimeException("Screenshot could not be saved", e);
